@@ -16,7 +16,6 @@ public class ApplicationTest {
 
 
         verify(library).listBooks();
-
     }
 
 }

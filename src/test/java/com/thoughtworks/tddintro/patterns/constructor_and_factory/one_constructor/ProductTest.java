@@ -14,7 +14,7 @@ public class ProductTest {
         assertThat(product.pricePerItem(), is(14.0));
     }
     @Test
-    @Ignore // This test fails due to price per item being Infinity
+    //This test fails due to price per item being Infinity
     public void pricePerItemShouldBeSameAsTotalPriceWhenThereIsOneItemWithDefaultConstructor() {
         Product product = new Product();
         product.setTotalPrice(14.0);

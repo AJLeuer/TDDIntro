@@ -5,7 +5,7 @@ public class Product {
     private double totalPrice;
 
     public Product() {
-        numberOfItems = 0;
+        numberOfItems = 1; //fixed by default initializing to 1
         totalPrice = 0.0;
     }
 
@@ -14,7 +14,7 @@ public class Product {
         this.totalPrice = totalPrice;
     }
 
-    public double pricePerItem(){
+    public double pricePerItem() {
         return totalPrice/numberOfItems;
     }
 
