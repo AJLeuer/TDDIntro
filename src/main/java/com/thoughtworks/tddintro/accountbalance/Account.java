@@ -9,12 +9,21 @@ public class Account {
 
     public Account() {}
 
+    public Account(int startingBalance) {
+        balance = startingBalance ;
+    }
+
     public void deposit(int amount) {
         balance += amount ;
     }
 
     public void withdraw(int amount) {
-        balance -= amount ;
+        if ((balance - amount) < 0) {
+            System.out.println("Not enough money for the requested withdrawal.") ;
+        }
+        else {
+            balance -= amount;
+        }
     }
 
     public int getBalance() {

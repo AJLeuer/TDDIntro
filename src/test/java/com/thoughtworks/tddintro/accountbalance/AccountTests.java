@@ -22,6 +22,7 @@ public class AccountTests {
 
     @Test
     public void shouldDecreaseMyBalanceWhenIWithdrawMoney(){
+        account = new Account(50) ;
         final int initialBalance = account.getBalance() ;
         account.withdraw(50) ;
         Assert.assertTrue(account.getBalance() < initialBalance);
@@ -29,8 +30,9 @@ public class AccountTests {
 
     @Test
     public void shouldNotDecreaseMyBalanceWhenIWithdrawMoneyAndDoNotHaveEnoughToCoverTheWithdrawal(){
+        account = new Account(50) ;
         final int initialBalance = account.getBalance() ;
-        account.withdraw(50) ;
+        account.withdraw(51) ;
         Assert.assertFalse(account.getBalance() < initialBalance);
     }
 }
