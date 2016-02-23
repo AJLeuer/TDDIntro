@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -69,8 +70,8 @@ public class LibraryTest {
         BufferedReader reader = mock(BufferedReader.class);
 
         when(reader.readLine()).thenReturn("1", "2");
+
         // implement me
-        String s = reader.readLine() ;
     }
 
     /*
@@ -111,7 +112,9 @@ public class LibraryTest {
         library.welcome(time);
 
         // add a verify here
+        verify(printStream).println("") ;
     }
+
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
