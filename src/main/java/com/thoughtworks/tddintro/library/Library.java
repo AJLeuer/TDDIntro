@@ -30,6 +30,7 @@ public class Library {
 
     public void welcome(DateTime date) {
         String timeString = dateTimeFormatter.print(date);
+
         printStream.println("Welcome to the library! The current time is " + timeString);
     }
 }

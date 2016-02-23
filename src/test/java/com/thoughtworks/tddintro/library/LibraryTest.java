@@ -13,26 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class LibraryTest {
 
     private Library library ;
     private PrintStream printStream ;
+    private DateTimeFormatter dateTimeFormatter ;
 
     /*
         List books tests. Implement the first three tests for the Verify exercise
      */
     @Before
     public void setUp() {
+        setUp(mock(PrintStream.class), mock(DateTimeFormatter.class));
+    }
+
+    public void setUp(PrintStream stream, DateTimeFormatter formatter) {
         List<String> books = new ArrayList<String>();
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
+        printStream = stream ;
+        dateTimeFormatter = formatter ;
 
-        printStream = mock(PrintStream.class);
-
-        library = new Library(books, printStream, dateTimeFormatter) ;
+        library = new Library(books, stream, formatter) ;
     }
 
 
@@ -72,6 +74,7 @@ public class LibraryTest {
         when(reader.readLine()).thenReturn("1", "2");
 
         // implement me
+        // ? a little confused about what's expected here
     }
 
     /*
@@ -112,14 +115,20 @@ public class LibraryTest {
         library.welcome(time);
 
         // add a verify here
-        verify(printStream).println("") ;
+        verify(dateTimeFormatter).print(time) ;
     }
 
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
-
         // implement me
         // then move common test variables into a setup method
+        setUp() ;
+        DateTime time = new DateTime() ;
+        when(dateTimeFormatter.print(time)).thenReturn("2013-04-08 16:33:17") ;
+
+        library.welcome(time) ;
+
+        verify(printStream).println(contains("2013-04-08 16:33:17")) ;
     }
 }
