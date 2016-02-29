@@ -4,7 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +17,8 @@ import static org.mockito.Mockito.*;
 public class LibraryTest {
 
     private Library library ;
-    private PrintStream printStream ;
-    private DateTimeFormatter dateTimeFormatter ;
+    private PrintStream mockPrintStream;
+    private DateTimeFormatter mockDateTimeFormatter;
 
     /*
         List books tests. Implement the first three tests for the Verify exercise
@@ -31,10 +30,9 @@ public class LibraryTest {
 
     public void setUp(PrintStream stream, DateTimeFormatter formatter) {
         List<String> books = new ArrayList<String>();
-        printStream = stream ;
-        dateTimeFormatter = formatter ;
-
-        library = new Library(books, stream, formatter) ;
+        this.mockPrintStream = stream ;
+        this.mockDateTimeFormatter = formatter ;
+        this.library = new Library(books, stream, formatter) ;
     }
 
 
@@ -47,22 +45,22 @@ public class LibraryTest {
 
         DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
 
-        library = new Library(books, printStream, dateTimeFormatter);
+        library = new Library(books, mockPrintStream, dateTimeFormatter);
 
         library.listBooks();
 
-        // add a verify statement here that shows that the book title was printed by to the printStream
-        verify(printStream).println("Book Title") ;
+        // add a verify statement here that shows that the book title was printed by to the mockPrintStream
+        verify(mockPrintStream).println("Book Title") ;
     }
 
     @Test
     public void shouldPrintNothingWhenThereAreNoBooks() {
         // implement me
-        setUp() ; //should reset library with no books
+
         library.listBooks();
 
         //verify
-        verify(printStream).println("") ;
+        verify(mockPrintStream).println("") ;
     }
 
     @Test
@@ -74,7 +72,16 @@ public class LibraryTest {
         when(reader.readLine()).thenReturn("1", "2");
 
         // implement me
-        // ? a little confused about what's expected here
+        List<String> twoBooks = new ArrayList<String>() ;
+        twoBooks.add("Book 1") ;
+        twoBooks.add("Book 2") ;
+
+        this.library = new Library(twoBooks, this.mockPrintStream, this.mockDateTimeFormatter) ;
+
+        library.listBooks();
+
+        verify(mockPrintStream).println(contains("Book 1")) ;
+        verify(mockPrintStream).println(contains("Book 2")) ;
     }
 
     /*
@@ -123,12 +130,11 @@ public class LibraryTest {
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
         // implement me
         // then move common test variables into a setup method
-        setUp() ;
         DateTime time = new DateTime() ;
-        when(dateTimeFormatter.print(time)).thenReturn("2013-04-08 16:33:17") ;
+        when(mockDateTimeFormatter.print(time)).thenReturn("2013-04-08 16:33:17") ;
 
         library.welcome(time) ;
 
-        verify(printStream).println(contains("2013-04-08 16:33:17")) ;
+        verify(mockPrintStream).println(contains("2013-04-08 16:33:17")) ;
     }
 }

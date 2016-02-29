@@ -1,7 +1,7 @@
 package com.thoughtworks.tddintro.accountbalance;
 
 /**
- * Created by tech on 2/23/2016.
+ * Created by Adam on 2/23/2016.
  */
 public class Account {
 
